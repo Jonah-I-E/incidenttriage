@@ -34,22 +34,23 @@ Force a mode with `TRIAGE_ANALYZER=rules|claude`, or `python evaluate.py --analy
 
 ## Current results (39 synthetic labeled alerts, 35 after de-duplication)
 
-| Metric | Rules-only | Claude (Haiku 5.5) | Target |
-|---|---|---|---|
-| Category accuracy | 97.1% | **100.0%** | 90% |
-| Severity accuracy | 48.6% ❌ | **68.6%** ❌ | 90% |
-| Severity within one level | 97.1% | **100.0%** | — |
-| Routing accuracy | **97.1%** | 94.3% ❌ (2 alerts sent to human review) | 95% |
-| Avg processing time | < 1 ms | 1.7 s (max 3.0 s) | < 10 s |
-| Critical alerts under-prioritized | 0 | 0 | 0 |
-| Duplicates folded | 4/4, 0 false folds | 4/4, 0 false folds | — |
+| Metric | Rules-only | Claude Haiku 5.5 | Claude Opus 5.5 | Target |
+|---|---|---|---|---|
+| Category accuracy | 97.1% | 100.0% | **100.0%** | 90% |
+| Severity accuracy | 48.6% ❌ | 68.6% ❌ | **71.4%** ❌ | 90% |
+| Severity within one level | 97.1% | 100.0% | **100.0%** | — |
+| Routing accuracy | **97.1%** | 94.3% ❌ | 94.3% ❌ | 95% |
+| Avg processing time | < 1 ms | 1.7 s (max 3.0 s) | 2.7 s (max 6.0 s) | < 10 s |
+| Critical alerts under-prioritized | 0 | 0 | 0 | 0 |
+| Duplicates folded | 4/4 | 4/4 | 4/4 | — |
 
-Claude improves severity by 20 points and gets every category right, but still misses the 90% severity
-target; every severity miss is off by exactly one level. Both routing misses are alerts where Claude and
-the rules disagreed with low confidence, so the agent sent them to human review instead of guessing.
-That is the intended safety behavior, but it counts as a miss. Full output is in [`evidence/`](evidence/README.md).
-The 39 alerts are synthetic and the rules were written alongside them, so treat these numbers as a smoke
-test and validate on real labeled alerts before quoting accuracy.
+Claude gets every category right and lifts severity accuracy by 20+ points over keyword rules, but
+neither model reaches the 90% severity target. Every severity miss is off by exactly one level.
+Both models' routing misses are the same two alerts (A017, A030): the model disagreed with the rules
+about the category with moderate confidence, so the agent sent them to human review instead of guessing.
+That is the intended safety behavior, but it counts as a miss. Full output for all three runs is in
+[`evidence/`](evidence/README.md). The 39 alerts are synthetic and the rules were written alongside them,
+so treat these numbers as a smoke test and validate on real labeled alerts before quoting accuracy.
 
 ## Tuning knobs (env vars)
 `TRIAGE_CONFIDENCE_THRESHOLD` (0.6), `TRIAGE_AUTO_MIN_CONFIDENCE` (0.8), `TRIAGE_AUTO_REMEDIATION` (1/0),

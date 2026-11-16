@@ -35,7 +35,10 @@ def main() -> int:
     os.environ["TRIAGE_ANALYZER"] = mode
     env = {**os.environ}
 
-    out = ROOT / "evidence" / f"{mode}-mode"
+    model = os.environ.get("TRIAGE_MODEL", "claude-opus-5-5")
+    # default model -> evidence/claude-mode; another model (e.g. claude-haiku-5-5) -> evidence/claude-haiku-mode
+    folder = mode if mode != "claude" or model == "claude-opus-5-5" else "claude-" + model.split("-")[1]
+    out = ROOT / "evidence" / f"{folder}-mode"
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
@@ -87,7 +90,7 @@ def main() -> int:
     (out / "RUN_INFO.json").write_text(json.dumps({
         "recorded_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "analyzer": service.pipeline.analyzer.name,
-        "model": os.environ.get("TRIAGE_MODEL", "claude-opus-5-5") if mode == "claude" else None,
+        "model": model if mode == "claude" else None,
         "python": sys.version.split()[0],
     }, indent=1))
     print("Done:", ", ".join(sorted(p.name for p in out.iterdir())))

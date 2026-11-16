@@ -6,7 +6,11 @@ Each folder was produced by one command, `python record_evidence.py`, and can be
 | Folder | Analyzer | Status |
 |---|---|---|
 | `rules-mode/` | Rules-only (no API key) | Recorded 2026-11-16 |
-| `claude-mode/` | Claude (`claude-haiku-5-5`) | Recorded 2026-11-16 by Jonah Erazo. Its `01_tests.txt` shows `No module named pytest`, because pytest was missing from `requirements.txt` at the time (since fixed); the tests pass in `rules-mode/01_tests.txt` |
+| `claude-mode/` | Claude Opus 5.5 (`claude-opus-5-5`, the default) | Recorded 2026-11-16 by Jonah Erazo |
+| `claude-haiku-mode/` | Claude Haiku 5.5 (`claude-haiku-5-5`) | Recorded 2026-11-16 by Jonah Erazo |
+
+Both Claude runs show `No module named pytest` in `01_tests.txt`, because pytest was missing from
+`requirements.txt` at the time (since fixed). The tests pass in `rules-mode/01_tests.txt`.
 
 ## What each file shows
 

@@ -1,0 +1,19 @@
+{
+ "analyzer": "claude:claude-haiku-5-5",
+ "alerts_in": 39,
+ "after_dedup": 35,
+ "duplicates_folded": "4/4",
+ "wrongly_folded": 0,
+ "category": 1.0,
+ "severity": 0.6857142857142857,
+ "severity_within_one_level": 1.0,
+ "routing": 0.9428571428571428,
+ "critical_underprioritized": 0,
+ "avg_seconds": 1.7059057142857144,
+ "max_seconds": 2.9842,
+ "actions": {
+  "route_to_team": 29,
+  "auto_remediate": 1,
+  "human_review": 5
+ }
+}

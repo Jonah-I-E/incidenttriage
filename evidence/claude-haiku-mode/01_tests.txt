@@ -1,0 +1,4 @@
+$ C:\Users\jonah\PycharmProjects\incidenttriage\.venv\Scripts\python.exe -m pytest -v tests
+# exit code: 1
+
+C:\Users\jonah\PycharmProjects\incidenttriage\.venv\Scripts\python.exe: No module named pytest
