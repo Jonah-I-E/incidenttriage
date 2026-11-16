@@ -6,7 +6,7 @@ Each folder was produced by one command, `python record_evidence.py`, and can be
 | Folder | Analyzer | Status |
 |---|---|---|
 | `rules-mode/` | Rules-only (no API key) | Recorded 2026-11-16 |
-| `claude-mode/` | Claude (`claude-opus-5-5`) | Not yet recorded: run `python record_evidence.py` with `ANTHROPIC_API_KEY` set |
+| `claude-mode/` | Claude (`claude-haiku-5-5`) | Recorded 2026-11-16 by Jonah Erazo. Its `01_tests.txt` shows `No module named pytest`, because pytest was missing from `requirements.txt` at the time (since fixed); the tests pass in `rules-mode/01_tests.txt` |
 
 ## What each file shows
 
