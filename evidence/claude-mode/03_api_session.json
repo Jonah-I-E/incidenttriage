@@ -5,7 +5,7 @@
   "response": {
    "processed": [
     {
-     "alert_id": "12843a44b390",
+     "alert_id": "bac260b2d563",
      "service": "checkout-api",
      "category": "application",
      "priority": "critical",
@@ -13,12 +13,12 @@
      "action": "route_to_team",
      "team": "Application On-Call",
      "runbook": null,
-     "summary": "The checkout-api service is returning HTTP 500 errors on /checkout at a rate above 30%. The error details show a NullPointerException in PaymentService.charge.",
+     "summary": "checkout-api is returning HTTP 500 errors at a rate above 30% on /checkout. Error details show a NullPointerException in PaymentService.charge.",
      "duplicates_folded": 0,
      "reasons": [
       "rules and model agree on 'application'"
      ],
-     "processing_ms": 2015.7
+     "processing_ms": 2214.3
     }
    ]
   }
@@ -29,7 +29,7 @@
   "response": {
    "processed": [
     {
-     "alert_id": "8e6e022119ae",
+     "alert_id": "ae0dbbaf5d8f",
      "service": "k8s",
      "category": "infrastructure",
      "priority": "high",
@@ -37,12 +37,12 @@
      "action": "route_to_team",
      "team": "Infrastructure / Platform",
      "runbook": null,
-     "summary": "Kubernetes node worker-3 is reporting NotReady, and the kubelet has stopped posting node status. The alert is from Prometheus under alert name KubeNodeNotReady.",
+     "summary": "Kubernetes node worker-3 is NotReady because the kubelet stopped posting node status (KubeNodeNotReady from Prometheus).",
      "duplicates_folded": 0,
      "reasons": [
       "rules and model agree on 'infrastructure'"
      ],
-     "processing_ms": 2605.8
+     "processing_ms": 2725.6
     }
    ]
   }
@@ -56,18 +56,18 @@
      "alert_id": "T-DEMO-1",
      "service": "unknown",
      "category": "unknown",
-     "priority": "medium",
+     "priority": "low",
      "confidence": 0.3,
      "action": "human_review",
      "team": "Triage Desk",
      "runbook": null,
-     "summary": "A ticket reports that something seems off with the system, with no specific service, host, or error identified. The reporter is unsure of the issue and asks for someone to investigate.",
+     "summary": "A ticket reports that something seems off with the system, with no specifics provided. The reporter asks for someone to look.",
      "duplicates_folded": 0,
      "reasons": [
       "no rule matched; relying on analyzer",
       "confidence 0.30 below 0.6 or unknown category"
      ],
-     "processing_ms": 1503.4
+     "processing_ms": 1979.4
     }
    ]
   }
@@ -79,23 +79,23 @@
    "parsed": 5,
    "processed": [
     {
-     "alert_id": "e57211bab80f",
+     "alert_id": "027788df1a78",
      "service": "nginx",
      "category": "network",
      "priority": "high",
-     "confidence": 0.72,
+     "confidence": 0.6,
      "action": "route_to_team",
      "team": "Network Operations",
      "runbook": null,
-     "summary": "Nginx on web-07 logged an upstream connection error with connection refused, meaning it could not reach its backend. The alert reports an ERROR level event with no duplicates.",
+     "summary": "nginx on web-07 logged an upstream connect error or disconnect/reset before headers with connection refused.",
      "duplicates_folded": 0,
      "reasons": [
       "no rule matched; relying on analyzer"
      ],
-     "processing_ms": 1435.1
+     "processing_ms": 2307.5
     },
     {
-     "alert_id": "52d67d336389",
+     "alert_id": "64e4521454a4",
      "service": "postgres",
      "category": "database",
      "priority": "medium",
@@ -103,31 +103,31 @@
      "action": "route_to_team",
      "team": "Database Team",
      "runbook": null,
-     "summary": "PostgreSQL on db-01 reported a deadlock: process 4411 is waiting for a ShareLock on transaction 7781. This is a single occurrence with no error details or additional context.",
+     "summary": "Postgres on db-01 logged a deadlock: process 4411 waits for ShareLock on transaction 7781. Single occurrence reported at ERROR level.",
      "duplicates_folded": 1,
      "reasons": [
       "rules and model agree on 'database'"
      ],
-     "processing_ms": 1447.8
+     "processing_ms": 2758.9
     },
     {
-     "alert_id": "625cd6443db1",
+     "alert_id": "aee8ac845500",
      "service": "sshd",
      "category": "security",
      "priority": "high",
-     "confidence": 0.9,
+     "confidence": 0.85,
      "action": "route_to_team",
      "team": "Security Operations",
      "runbook": null,
-     "summary": "The sshd service on host bastion logged 300 failed password attempts for root from 198.51.100.23, suspected brute force. No successful login is mentioned in the alert.",
+     "summary": "sshd on host bastion logged failed password attempts for root from 198.51.100.23, with 300 failed attempts and brute force suspected.",
      "duplicates_folded": 0,
      "reasons": [
       "rules and model agree on 'security'"
      ],
-     "processing_ms": 1514.0
+     "processing_ms": 2852.9
     },
     {
-     "alert_id": "dfcdee52c6f1",
+     "alert_id": "978742895d67",
      "service": "kernel",
      "category": "infrastructure",
      "priority": "high",
@@ -135,12 +135,12 @@
      "action": "route_to_team",
      "team": "Infrastructure / Platform",
      "runbook": null,
-     "summary": "A kernel log on host batch-03 reports 'No space left on device' while writing /data/out.parquet at 2026-11-16T10:04:12Z. The reported severity is CRIT, but the alert does not show whether the job or host is down.",
+     "summary": "Kernel on host batch-03 reported 'No space left on device' while writing /data/out.parquet. Reported severity is CRIT.",
      "duplicates_folded": 0,
      "reasons": [
       "rules and model agree on 'infrastructure'"
      ],
-     "processing_ms": 1735.4
+     "processing_ms": 2760.0
     }
    ]
   }
@@ -160,13 +160,13 @@
      "action": "auto_remediate",
      "team": "Infrastructure / Platform",
      "runbook": "clear_tmp_and_rotate_logs",
-     "summary": "Disk usage on /var on host web-09 is at 86%. The alert reports a warning with no other context.",
+     "summary": "Filesystem /var on host web-09 is at 86% disk usage. Reported severity is warning.",
      "duplicates_folded": 0,
      "reasons": [
       "rules and model agree on 'infrastructure'",
       "known low-risk issue: runbook 'clear_tmp_and_rotate_logs'"
      ],
-     "processing_ms": 1437.1
+     "processing_ms": 2641.3
     },
     {
      "alert_id": "C2",
@@ -177,12 +177,12 @@
      "action": "route_to_team",
      "team": "Application On-Call",
      "runbook": null,
-     "summary": "Payments service host pay-02 is returning HTTP 502 errors on payment callbacks with an upstream timeout reported. The alert reports no duplicates and no additional context.",
+     "summary": "Host pay-02 in the payments service is returning HTTP 502 errors on the payment callback endpoint, with error details indicating an upstream timeout.",
      "duplicates_folded": 0,
      "reasons": [
       "rules and model agree on 'application'"
      ],
-     "processing_ms": 1377.3
+     "processing_ms": 2552.6
     },
     {
      "alert_id": "C3",
@@ -193,13 +193,13 @@
      "action": "human_review",
      "team": "Triage Desk",
      "runbook": null,
-     "summary": "The email-worker service on host ew-1 has a queue backlog and its consumer is not processing messages. The alert reports warning severity with no additional context.",
+     "summary": "Email-worker on host ew-1 reports a queue backlog with the worker stuck. The consumer is not processing messages.",
      "duplicates_folded": 0,
      "reasons": [
       "rules say 'performance', model says 'application'",
       "confidence 0.42 below 0.6 or unknown category"
      ],
-     "processing_ms": 1536.3
+     "processing_ms": 2561.5
     }
    ]
   }

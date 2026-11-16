@@ -2,40 +2,38 @@ $ C:\Users\jonah\PycharmProjects\incidenttriage\.venv\Scripts\python.exe evaluat
 # exit code: 1
 
 
-Analyzer: claude:claude-haiku-5-5   alerts: 39 -> 35 after de-dup (folded 4/4 expected duplicates, 0 wrongly folded)
+Analyzer: claude:claude-opus-5-5   alerts: 39 -> 35 after de-dup (folded 4/4 expected duplicates, 0 wrongly folded)
 
 Metric                          Result    Target   Pass
 Category accuracy              100.0%      90%    PASS
-Severity accuracy               68.6%      90%    FAIL
+Severity accuracy               71.4%      90%    FAIL
 Routing accuracy                94.3%      95%    FAIL
-Avg processing time             1.706s      <10s    PASS
+Avg processing time             2.674s      <10s    PASS
 Critical alerts under-prio           0         0    PASS
 
-Severity within one level: 100.0%   max latency: 2.984s
+Severity within one level: 100.0%   max latency: 6.043s
 Actions: {'route_to_team': 29, 'auto_remediate': 1, 'human_review': 5}
 
 Misses (id | message | expected -> got):
+  A001 | BGP session to upstream ISP-B down
+      expected network/critical/Network Operations -> got network/high/Network Operations (route_to_team, conf 0.85)
   A005 | Stale DNS cache on app-07 after record change
       expected network/low/Network Operations -> got network/medium/Network Operations (route_to_team, conf 0.85)
-  A006 | PostgreSQL replication lag 340s on replica-2
-      expected database/medium/Database Team -> got database/high/Database Team (route_to_team, conf 0.85)
   P008 | MySQL too many connections
-      expected database/high/Database Team -> got database/critical/Database Team (route_to_team, conf 0.9)
-  A012 | Unhandled exception in profile update endpoint
-      expected application/medium/Application On-Call -> got application/high/Application On-Call (route_to_team, conf 0.85)
+      expected database/high/Database Team -> got database/critical/Database Team (route_to_team, conf 0.85)
+  A009 | Deadlock detected in inventory update transaction
+      expected database/high/Database Team -> got database/medium/Database Team (route_to_team, conf 0.85)
+  T014 | Login page shows 'Something went wrong'
+      expected application/high/Application On-Call -> got application/critical/Application On-Call (route_to_team, conf 0.85)
   A016 | p99 latency above 2.5s for 10 minutes
       expected performance/high/SRE -> got performance/medium/SRE (route_to_team, conf 0.85)
   A017 | Queue backlog: email worker stuck, 12k messages pending
-      expected performance/medium/SRE -> got performance/high/Triage Desk (human_review, conf 0.49)
+      expected performance/medium/SRE -> got performance/high/Triage Desk (human_review, conf 0.52)
   A020 | Slow response time on monthly report endpoint
       expected performance/low/SRE -> got performance/medium/SRE (route_to_team, conf 0.85)
-  P023 | WAF blocked 3k SQL injection attempts
-      expected security/medium/Security Operations -> got security/high/Security Operations (route_to_team, conf 0.85)
-  T024 | Suspicious email with invoice attachment
-      expected security/low/Security Operations -> got security/medium/Security Operations (route_to_team, conf 0.85)
-  A029 | No space left on device writing to /data
-      expected infrastructure/high/Infrastructure / Platform -> got infrastructure/critical/Infrastructure / Platform (route_to_team, conf 0.85)
   A030 | TLS certificate for api.example.com expiring in 21 days
-      expected infrastructure/low/Infrastructure / Platform -> got infrastructure/low/Triage Desk (human_review, conf 0.49)
-  A032 | Kernel panic, host rebooted unexpectedly
-      expected infrastructure/high/Infrastructure / Platform -> got infrastructure/critical/Infrastructure / Platform (route_to_team, conf 0.85)
+      expected infrastructure/low/Infrastructure / Platform -> got infrastructure/low/Triage Desk (human_review, conf 0.52)
+  A031 | Redundant power supply failure on hypervisor hv-02
+      expected infrastructure/medium/Infrastructure / Platform -> got infrastructure/high/Infrastructure / Platform (route_to_team, conf 0.85)
+  T035 | Customer says app 'not working'
+      expected unknown/medium/Triage Desk -> got unknown/low/Triage Desk (human_review, conf 0.3)

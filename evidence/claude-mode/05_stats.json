@@ -8,9 +8,10 @@
  "by_priority": {
   "critical": 1,
   "high": 5,
-  "medium": 4
+  "low": 1,
+  "medium": 3
  },
- "avg_processing_ms": 1660.8,
+ "avg_processing_ms": 2535.4,
  "human_reviewed": 2,
  "reviewed_accuracy": {
   "category": 0.5,
