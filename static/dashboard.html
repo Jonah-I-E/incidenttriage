@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Incident Triage Agent</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1c2230; --muted:#667085; --line:#e4e7ec;
+          --crit:#c0262d; --high:#d9730d; --med:#b58900; --low:#2f7d4f; --accent:#2d5bd7; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; background:var(--bg); color:var(--ink); }
+  header { padding:16px 24px; background:var(--card); border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  header h1 { font-size:18px; margin:0; } header span { color:var(--muted); }
+  main { padding:16px 24px; max-width:1400px; margin:auto; }
+  .row { display:grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px 14px; }
+  .stat b { display:block; font-size:22px; } .stat small { color:var(--muted); }
+  .inputs { display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:16px; }
+  @media (max-width: 800px) { .inputs { grid-template-columns: 1fr; } }
+  textarea { width:100%; height:110px; font:12px ui-monospace,monospace; border:1px solid var(--line); border-radius:6px; padding:8px; }
+  button { background:var(--accent); color:#fff; border:0; border-radius:6px; padding:6px 12px; cursor:pointer; font-size:13px; }
+  button.ghost { background:transparent; color:var(--accent); border:1px solid var(--line); padding:3px 8px; font-size:12px; }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-size:12px; color:var(--muted); font-weight:600; background:#fafbfc; }
+  .tablewrap { overflow-x:auto; }
+  .pill { display:inline-block; padding:1px 8px; border-radius:999px; font-size:12px; font-weight:600; color:#fff; }
+  .critical{background:var(--crit)} .high{background:var(--high)} .medium{background:var(--med)} .low{background:var(--low)}
+  .act { font-size:12px; font-weight:600; }
+  .act.human_review { color:var(--crit); } .act.auto_remediate { color:var(--low); } .act.route_to_team { color:var(--accent); }
+  .muted { color:var(--muted); font-size:12px; }
+  #msg { margin-left:8px; color:var(--muted); }
+</style>
+</head>
+<body>
+<header><h1>Incident Triage Agent</h1><span id="analyzer">prototype</span></header>
+<main>
+  <div class="row" id="stats"></div>
+  <div class="inputs">
+    <div class="card">
+      <b>Send alert JSON</b> <span class="muted">(same as POST /alerts webhook)</span>
+      <textarea id="json">[{"service":"checkout-api","message":"HTTP 500 error rate above 30% on /checkout","error_details":"NullPointerException in PaymentService","severity":"error"}]</textarea>
+      <button onclick="sendJson()">Triage</button>
+    </div>
+    <div class="card">
+      <b>Upload alerts / logs</b> <span class="muted">(.json, .jsonl, .csv, or plain log lines)</span>
+      <p><input type="file" id="file"></p>
+      <button onclick="upload()">Upload &amp; triage</button><span id="msg"></span>
+    </div>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>#</th><th>Priority</th><th>Service / alert</th><th>Category</th><th>Action → Team</th><th>Conf.</th><th>Why</th><th>Review</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  </div>
+</main>
+<script>
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function refresh() {
+  const [st, inc] = await Promise.all([fetch("/stats").then(r=>r.json()), fetch("/incidents").then(r=>r.json())]);
+  document.getElementById("analyzer").textContent = "analyzer: " + st.analyzer;
+  const acc = st.reviewed_accuracy;
+  const tiles = [["Incidents", st.total], ["Routed", st.by_action.route_to_team||0], ["Auto-remediated", st.by_action.auto_remediate||0],
+    ["Human review", st.by_action.human_review||0], ["Avg ms", st.avg_processing_ms],
+    ["Reviewed", st.human_reviewed + (acc ? ` · ${Math.round(acc.team*100)}% routed right` : "")]];
+  document.getElementById("stats").innerHTML = tiles.map(([k,v]) => `<div class="card stat"><small>${k}</small><b>${esc(v)}</b></div>`).join("");
+  document.getElementById("rows").innerHTML = inc.map(i => `<tr>
+    <td>${i.id}</td><td><span class="pill ${i.priority}">${i.priority}</span></td>
+    <td><b>${esc(i.service)}</b><br>${esc(i.message)}<br><span class="muted">${esc(i.summary)}${i.duplicate_count?` · ${i.duplicate_count} dups folded`:""}</span></td>
+    <td>${esc(i.category)}<br><span class="muted">${esc(i.analyzer)}</span></td>
+    <td><span class="act ${i.action}">${i.action.replace(/_/g," ")}</span><br>${esc(i.team)}${i.runbook?`<br><span class="muted">runbook: ${esc(i.runbook)}</span>`:""}</td>
+    <td>${i.confidence}</td>
+    <td class="muted">${JSON.parse(i.reasons).map(esc).join("<br>")}</td>
+    <td>${i.outcome ? esc(i.outcome) : `<button class="ghost" onclick="fb(${i.id},'correct')">✓ correct</button>
+        <button class="ghost" onclick="fix(${i.id})">fix…</button>`}</td></tr>`).join("");
+}
+async function sendJson() {
+  let body; try { body = JSON.parse(document.getElementById("json").value); } catch(e) { return alert("Invalid JSON"); }
+  await fetch("/alerts", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)}); refresh();
+}
+async function upload() {
+  const f = document.getElementById("file").files[0]; if (!f) return;
+  const fd = new FormData(); fd.append("file", f);
+  const r = await fetch("/upload", {method:"POST", body:fd}).then(r=>r.json());
+  document.getElementById("msg").textContent = r.parsed !== undefined ? `parsed ${r.parsed}, triaged ${r.processed.length}` : JSON.stringify(r);
+  refresh();
+}
+async function fb(id, outcome, extra={}) {
+  await fetch(`/incidents/${id}/feedback`, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({outcome, ...extra})}); refresh();
+}
+function fix(id) {
+  const team = prompt("Correct team? (blank = unchanged)") || null;
+  const pri = prompt("Correct priority? critical/high/medium/low (blank = unchanged)") || null;
+  const cat = prompt("Correct category? (blank = unchanged)") || null;
+  fb(id, "corrected", {correct_team: team, correct_priority: pri, correct_category: cat});
+}
+refresh(); setInterval(refresh, 5000);
+</script>
+</body>
+</html>

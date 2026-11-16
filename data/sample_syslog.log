@@ -1,0 +1,6 @@
+2026-11-16T10:01:02Z web-07 nginx[2211]: ERROR upstream connect error or disconnect/reset before headers, connection refused
+2026-11-16T10:01:05Z web-07 nginx[2211]: INFO request served 200
+2026-11-16T10:02:11Z db-01 postgres[901]: ERROR deadlock detected, process 4411 waits for ShareLock on transaction 7781
+2026-11-16T10:02:40Z db-01 postgres[901]: ERROR deadlock detected, process 4519 waits for ShareLock on transaction 7790
+2026-11-16T10:03:00Z bastion sshd[77]: WARN Failed password for root from 198.51.100.23 - brute force suspected, 300 failed attempts
+2026-11-16T10:04:12Z batch-03 kernel: CRIT No space left on device writing /data/out.parquet

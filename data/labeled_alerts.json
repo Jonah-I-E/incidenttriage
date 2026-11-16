@@ -1,0 +1,632 @@
+[
+ {
+  "alert_id": "A001",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:01:00Z",
+  "service": "edge-router",
+  "host": "edge-router-01",
+  "message": "BGP session to upstream ISP-B down",
+  "error_details": "neighbor 203.0.113.9 state Idle",
+  "severity": "critical",
+  "label": {
+   "category": "network",
+   "severity": "critical",
+   "team": "Network Operations",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A002",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:02:00Z",
+  "service": "office-vpn",
+  "host": "office-vpn-01",
+  "message": "VPN tunnel flapping between HQ and DC2",
+  "error_details": "IKE SA renegotiated 14 times in 10m",
+  "severity": "warning",
+  "label": {
+   "category": "network",
+   "severity": "medium",
+   "team": "Network Operations",
+   "duplicate_of": null
+  }
+ },
+ {
+  "fingerprint": "P003",
+  "startsAt": "2026-11-16T09:03:00Z",
+  "labels": {
+   "alertname": "PacketLoss",
+   "service": "core-switch",
+   "instance": "core-switch-node3",
+   "severity": "warning"
+  },
+  "annotations": {
+   "summary": "Packet loss 12% on uplink eth1/49",
+   "description": "Sustained packet loss over 5 minutes"
+  },
+  "label": {
+   "category": "network",
+   "severity": "high",
+   "team": "Network Operations"
+  }
+ },
+ {
+  "alert_id": "A004",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:04:00Z",
+  "service": "dns",
+  "host": "dns-01",
+  "message": "NXDOMAIN responses for internal zone corp.local spiking",
+  "error_details": "resolver ns2 returning NXDOMAIN for 40% of queries",
+  "severity": "error",
+  "label": {
+   "category": "network",
+   "severity": "high",
+   "team": "Network Operations",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A005",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:05:00Z",
+  "service": "dns",
+  "host": "dns-01",
+  "message": "Stale DNS cache on app-07 after record change",
+  "error_details": "resolver still returns old IP",
+  "severity": "warning",
+  "label": {
+   "category": "network",
+   "severity": "low",
+   "team": "Network Operations",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A006",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:06:00Z",
+  "service": "orders-db",
+  "host": "orders-db-01",
+  "message": "PostgreSQL replication lag 340s on replica-2",
+  "error_details": "WAL replay behind primary",
+  "severity": "warning",
+  "label": {
+   "category": "database",
+   "severity": "medium",
+   "team": "Database Team",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A007",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:07:00Z",
+  "service": "orders-db",
+  "host": "orders-db-01",
+  "message": "Primary database unreachable - orders-db primary down",
+  "error_details": "connection refused on 5432; failover not triggered",
+  "severity": "critical",
+  "label": {
+   "category": "database",
+   "severity": "critical",
+   "team": "Database Team",
+   "duplicate_of": null
+  }
+ },
+ {
+  "fingerprint": "P008",
+  "startsAt": "2026-11-16T09:08:00Z",
+  "labels": {
+   "alertname": "MySQLTooManyConnections",
+   "service": "billing-mysql",
+   "instance": "billing-mysql-node8",
+   "severity": "critical"
+  },
+  "annotations": {
+   "summary": "MySQL too many connections",
+   "description": "max_connections 500 reached, new connections rejected"
+  },
+  "label": {
+   "category": "database",
+   "severity": "high",
+   "team": "Database Team"
+  }
+ },
+ {
+  "alert_id": "A009",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:09:00Z",
+  "service": "inventory-db",
+  "host": "inventory-db-01",
+  "message": "Deadlock detected in inventory update transaction",
+  "error_details": "ERROR: deadlock detected, process 4411 waits for ShareLock",
+  "severity": "error",
+  "label": {
+   "category": "database",
+   "severity": "high",
+   "team": "Database Team",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A010",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:10:00Z",
+  "service": "analytics-db",
+  "host": "analytics-db-01",
+  "message": "Slow query warning: report query took 48s",
+  "error_details": "SELECT ... FROM events GROUP BY ...",
+  "severity": "warning",
+  "label": {
+   "category": "database",
+   "severity": "low",
+   "team": "Database Team",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A011",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:11:00Z",
+  "service": "checkout-api",
+  "host": "checkout-api-01",
+  "message": "HTTP 500 error rate above 25% on /checkout",
+  "error_details": "NullPointerException in PaymentService.charge",
+  "severity": "error",
+  "label": {
+   "category": "application",
+   "severity": "critical",
+   "team": "Application On-Call",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A012",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:12:00Z",
+  "service": "user-service",
+  "host": "user-service-01",
+  "message": "Unhandled exception in profile update endpoint",
+  "error_details": "Traceback ... KeyError: 'avatar_url'",
+  "severity": "error",
+  "label": {
+   "category": "application",
+   "severity": "medium",
+   "team": "Application On-Call",
+   "duplicate_of": null
+  }
+ },
+ {
+  "fingerprint": "P013",
+  "startsAt": "2026-11-16T09:13:00Z",
+  "labels": {
+   "alertname": "PodCrashLooping",
+   "service": "notification-svc",
+   "instance": "notification-svc-node13",
+   "severity": "critical"
+  },
+  "annotations": {
+   "summary": "notification-svc pod in CrashLoopBackOff",
+   "description": "Container exited with code 1: panic: nil map assignment"
+  },
+  "label": {
+   "category": "application",
+   "severity": "high",
+   "team": "Application On-Call"
+  }
+ },
+ {
+  "ticket_id": "T014",
+  "created_at": "2026-11-16T09:14:00Z",
+  "subject": "Login page shows 'Something went wrong'",
+  "body": "Several users report the login page throws an internal server error since this morning's deploy.",
+  "service": "auth-web",
+  "reporter": "helpdesk",
+  "label": {
+   "category": "application",
+   "severity": "high",
+   "team": "Application On-Call"
+  }
+ },
+ {
+  "alert_id": "A015",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:15:00Z",
+  "service": "search-api",
+  "host": "search-api-01",
+  "message": "Deployment failed health check, rollback completed",
+  "error_details": "readiness probe failed for v2.3.1; previous version restored",
+  "severity": "warning",
+  "label": {
+   "category": "application",
+   "severity": "low",
+   "team": "Application On-Call",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A016",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:16:00Z",
+  "service": "catalog-api",
+  "host": "catalog-api-01",
+  "message": "p99 latency above 2.5s for 10 minutes",
+  "error_details": "baseline 300ms",
+  "severity": "warning",
+  "label": {
+   "category": "performance",
+   "severity": "high",
+   "team": "SRE",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A017",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:17:00Z",
+  "service": "email-worker",
+  "host": "email-worker-01",
+  "message": "Queue backlog: email worker stuck, 12k messages pending",
+  "error_details": "consumer not processing since 08:51",
+  "severity": "warning",
+  "label": {
+   "category": "performance",
+   "severity": "medium",
+   "team": "SRE",
+   "duplicate_of": null
+  }
+ },
+ {
+  "fingerprint": "P018",
+  "startsAt": "2026-11-16T09:18:00Z",
+  "labels": {
+   "alertname": "KafkaConsumerLag",
+   "service": "events-pipeline",
+   "instance": "events-pipeline-node18",
+   "severity": "warning"
+  },
+  "annotations": {
+   "summary": "Consumer lag rising on topic clicks",
+   "description": "lag 250k messages and increasing"
+  },
+  "label": {
+   "category": "performance",
+   "severity": "medium",
+   "team": "SRE"
+  }
+ },
+ {
+  "alert_id": "A019",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:19:00Z",
+  "service": "web-frontend",
+  "host": "web-frontend-01",
+  "message": "Apdex dropped to 0.71 on product pages",
+  "error_details": "slow page render, TTFB 1.9s",
+  "severity": "warning",
+  "label": {
+   "category": "performance",
+   "severity": "medium",
+   "team": "SRE",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A020",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:20:00Z",
+  "service": "reports",
+  "host": "reports-01",
+  "message": "Slow response time on monthly report endpoint",
+  "error_details": "average 6s vs 2s baseline, internal users only",
+  "severity": "info",
+  "label": {
+   "category": "performance",
+   "severity": "low",
+   "team": "SRE",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A021",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:21:00Z",
+  "service": "bastion",
+  "host": "bastion-01",
+  "message": "Brute force: 1,240 failed SSH login attempts from 198.51.100.23",
+  "error_details": "sshd: Failed password for root",
+  "severity": "warning",
+  "label": {
+   "category": "security",
+   "severity": "high",
+   "team": "Security Operations",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A022",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:22:00Z",
+  "service": "endpoint-av",
+  "host": "endpoint-av-01",
+  "message": "Ransomware behavior detected on FIN-LAPTOP-22",
+  "error_details": "mass file rename *.locked; process quarantined",
+  "severity": "critical",
+  "label": {
+   "category": "security",
+   "severity": "critical",
+   "team": "Security Operations",
+   "duplicate_of": null
+  }
+ },
+ {
+  "fingerprint": "P023",
+  "startsAt": "2026-11-16T09:23:00Z",
+  "labels": {
+   "alertname": "WAFBlockSpike",
+   "service": "public-web",
+   "instance": "public-web-node23",
+   "severity": "warning"
+  },
+  "annotations": {
+   "summary": "WAF blocked 3k SQL injection attempts",
+   "description": "Requests blocked by rule 942100 from multiple IPs"
+  },
+  "label": {
+   "category": "security",
+   "severity": "medium",
+   "team": "Security Operations"
+  }
+ },
+ {
+  "ticket_id": "T024",
+  "created_at": "2026-11-16T09:24:00Z",
+  "subject": "Suspicious email with invoice attachment",
+  "body": "An employee forwarded a suspicious email asking to enable macros. Nobody opened it.",
+  "service": "unknown",
+  "reporter": "helpdesk",
+  "label": {
+   "category": "security",
+   "severity": "low",
+   "team": "Security Operations"
+  }
+ },
+ {
+  "alert_id": "A025",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:25:00Z",
+  "service": "iam",
+  "host": "iam-01",
+  "message": "Unauthorized access attempt to admin API with revoked token",
+  "error_details": "403 for token issued to former contractor",
+  "severity": "error",
+  "label": {
+   "category": "security",
+   "severity": "high",
+   "team": "Security Operations",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A026",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:26:00Z",
+  "service": "web-07",
+  "host": "web-07",
+  "message": "Disk usage at 88% on /var",
+  "error_details": "filesystem /var 88% used",
+  "severity": "warning",
+  "label": {
+   "category": "infrastructure",
+   "severity": "medium",
+   "team": "Infrastructure / Platform",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A027",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:27:00Z",
+  "service": "db-backup",
+  "host": "db-backup-01",
+  "message": "Nightly backup job failed for file server",
+  "error_details": "rsync exit code 23",
+  "severity": "error",
+  "label": {
+   "category": "infrastructure",
+   "severity": "medium",
+   "team": "Infrastructure / Platform",
+   "duplicate_of": null
+  }
+ },
+ {
+  "fingerprint": "P028",
+  "startsAt": "2026-11-16T09:28:00Z",
+  "labels": {
+   "alertname": "KubeNodeNotReady",
+   "service": "k8s",
+   "instance": "k8s-node28",
+   "severity": "warning"
+  },
+  "annotations": {
+   "summary": "Node worker-12 NotReady",
+   "description": "kubelet stopped posting node status"
+  },
+  "label": {
+   "category": "infrastructure",
+   "severity": "high",
+   "team": "Infrastructure / Platform"
+  }
+ },
+ {
+  "alert_id": "A029",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:29:00Z",
+  "service": "batch-03",
+  "host": "batch-03-01",
+  "message": "No space left on device writing to /data",
+  "error_details": "filesystem /data 100% used, jobs failing",
+  "severity": "critical",
+  "label": {
+   "category": "infrastructure",
+   "severity": "high",
+   "team": "Infrastructure / Platform",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A030",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:30:00Z",
+  "service": "lb-cert",
+  "host": "lb-cert-01",
+  "message": "TLS certificate for api.example.com expiring in 21 days",
+  "error_details": null,
+  "severity": "info",
+  "label": {
+   "category": "infrastructure",
+   "severity": "low",
+   "team": "Infrastructure / Platform",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A031",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:31:00Z",
+  "service": "hv-02",
+  "host": "hv-02-01",
+  "message": "Redundant power supply failure on hypervisor hv-02",
+  "error_details": "PSU2 status: failed, PSU1 OK",
+  "severity": "warning",
+  "label": {
+   "category": "infrastructure",
+   "severity": "medium",
+   "team": "Infrastructure / Platform",
+   "duplicate_of": null
+  }
+ },
+ {
+  "alert_id": "A032",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:32:00Z",
+  "service": "app-12",
+  "host": "app-12-01",
+  "message": "Kernel panic, host rebooted unexpectedly",
+  "error_details": "kernel BUG at mm/slub.c",
+  "severity": "critical",
+  "label": {
+   "category": "infrastructure",
+   "severity": "high",
+   "team": "Infrastructure / Platform",
+   "duplicate_of": null
+  }
+ },
+ {
+  "ticket_id": "T033",
+  "created_at": "2026-11-16T09:33:00Z",
+  "subject": "Something is weird with the system",
+  "body": "Things feel off today, not sure what. Can someone take a look?",
+  "service": "unknown",
+  "reporter": "helpdesk",
+  "label": {
+   "category": "unknown",
+   "severity": "low",
+   "team": "Triage Desk"
+  }
+ },
+ {
+  "alert_id": "A034",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:34:00Z",
+  "service": "misc",
+  "host": "misc-01",
+  "message": "Check status",
+  "error_details": "heartbeat missing value",
+  "severity": null,
+  "label": {
+   "category": "unknown",
+   "severity": "low",
+   "team": "Triage Desk",
+   "duplicate_of": null
+  }
+ },
+ {
+  "ticket_id": "T035",
+  "created_at": "2026-11-16T09:35:00Z",
+  "subject": "Customer says app 'not working'",
+  "body": "Customer on phone says the app is not working for them, no other details.",
+  "service": "unknown",
+  "reporter": "helpdesk",
+  "label": {
+   "category": "unknown",
+   "severity": "medium",
+   "team": "Triage Desk"
+  }
+ },
+ {
+  "alert_id": "D000",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:11:10Z",
+  "service": "checkout-api",
+  "host": "checkout-api-01",
+  "message": "HTTP 500 error rate above 31% on /checkout",
+  "error_details": "NullPointerException in PaymentService.charge",
+  "severity": "error",
+  "label": {
+   "category": "application",
+   "severity": "critical",
+   "team": "Application On-Call",
+   "duplicate_of": "A011"
+  }
+ },
+ {
+  "alert_id": "D001",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:11:11Z",
+  "service": "checkout-api",
+  "host": "checkout-api-01",
+  "message": "HTTP 500 error rate above 31% on /checkout",
+  "error_details": "NullPointerException in PaymentService.charge",
+  "severity": "error",
+  "label": {
+   "category": "application",
+   "severity": "critical",
+   "team": "Application On-Call",
+   "duplicate_of": "A011"
+  }
+ },
+ {
+  "alert_id": "D002",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:11:12Z",
+  "service": "checkout-api",
+  "host": "checkout-api-01",
+  "message": "HTTP 500 error rate above 31% on /checkout",
+  "error_details": "NullPointerException in PaymentService.charge",
+  "severity": "error",
+  "label": {
+   "category": "application",
+   "severity": "critical",
+   "team": "Application On-Call",
+   "duplicate_of": "A011"
+  }
+ },
+ {
+  "alert_id": "D003",
+  "source": "datadog",
+  "timestamp": "2026-11-16T09:26:13Z",
+  "service": "web-07",
+  "host": "web-07",
+  "message": "Disk usage at 88% on /var",
+  "error_details": "filesystem /var 88% used",
+  "severity": "warning",
+  "label": {
+   "category": "infrastructure",
+   "severity": "medium",
+   "team": "Infrastructure / Platform",
+   "duplicate_of": "A026"
+  }
+ }
+]
