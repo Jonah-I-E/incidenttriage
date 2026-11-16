@@ -1,0 +1,19 @@
+{
+ "analyzer": "rules",
+ "alerts_in": 39,
+ "after_dedup": 35,
+ "duplicates_folded": "4/4",
+ "wrongly_folded": 0,
+ "category": 0.9714285714285714,
+ "severity": 0.4857142857142857,
+ "severity_within_one_level": 0.9714285714285714,
+ "routing": 0.9714285714285714,
+ "critical_underprioritized": 0,
+ "avg_seconds": 0.00036571428571428573,
+ "max_seconds": 0.0043,
+ "actions": {
+  "route_to_team": 30,
+  "auto_remediate": 2,
+  "human_review": 3
+ }
+}

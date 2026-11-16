@@ -1,0 +1,21 @@
+{
+ "total": 10,
+ "by_action": {
+  "auto_remediate": 2,
+  "human_review": 2,
+  "route_to_team": 6
+ },
+ "by_priority": {
+  "critical": 1,
+  "high": 5,
+  "medium": 4
+ },
+ "avg_processing_ms": 0.7,
+ "human_reviewed": 2,
+ "reviewed_accuracy": {
+  "category": 0.5,
+  "priority": 1.0,
+  "team": 0.5
+ },
+ "analyzer": "rules"
+}

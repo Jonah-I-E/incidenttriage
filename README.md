@@ -5,6 +5,9 @@ prioritize → orchestrate (auto-remediate / route to team / human review) → l
 
 ![dashboard](docs/dashboard.png)
 
+**Evidence of execution:** recorded test, evaluation and demo-session output is in [`evidence/`](evidence/README.md).
+Regenerate it with `python record_evidence.py`.
+
 ## Run it
 
 ```bash

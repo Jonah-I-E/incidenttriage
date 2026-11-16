@@ -1,0 +1,55 @@
+$ /usr/local/bin/python3 evaluate.py --analyzer rules --show-errors
+# exit code: 1
+
+
+Analyzer: rules   alerts: 39 -> 35 after de-dup (folded 4/4 expected duplicates, 0 wrongly folded)
+
+Metric                          Result    Target   Pass
+Category accuracy               97.1%      90%    PASS
+Severity accuracy               48.6%      90%    FAIL
+Routing accuracy                97.1%      95%    PASS
+Avg processing time             0.000s      <10s    PASS
+Critical alerts under-prio           0         0    PASS
+
+Severity within one level: 97.1%   max latency: 0.004s
+Actions: {'route_to_team': 30, 'auto_remediate': 2, 'human_review': 3}
+
+Misses (id | message | expected -> got):
+  P003 | Packet loss 12% on uplink eth1/49
+      expected network/high/Network Operations -> got network/medium/Network Operations (route_to_team, conf 0.95)
+  A005 | Stale DNS cache on app-07 after record change
+      expected network/low/Network Operations -> got network/medium/Network Operations (route_to_team, conf 0.85)
+  A006 | PostgreSQL replication lag 340s on replica-2
+      expected database/medium/Database Team -> got database/high/Database Team (route_to_team, conf 0.95)
+  A007 | Primary database unreachable - orders-db primary down
+      expected database/critical/Database Team -> got network/critical/Network Operations (route_to_team, conf 0.95)
+  A010 | Slow query warning: report query took 48s
+      expected database/low/Database Team -> got database/medium/Database Team (route_to_team, conf 0.75)
+  A011 | HTTP 500 error rate above 25% on /checkout
+      expected application/critical/Application On-Call -> got application/high/Application On-Call (route_to_team, conf 0.95)
+  A012 | Unhandled exception in profile update endpoint
+      expected application/medium/Application On-Call -> got application/high/Application On-Call (route_to_team, conf 0.95)
+  P013 | notification-svc pod in CrashLoopBackOff
+      expected application/high/Application On-Call -> got application/critical/Application On-Call (route_to_team, conf 0.75)
+  T014 | Login page shows 'Something went wrong'
+      expected application/high/Application On-Call -> got application/medium/Application On-Call (route_to_team, conf 0.85)
+  A015 | Deployment failed health check, rollback completed
+      expected application/low/Application On-Call -> got application/high/Application On-Call (route_to_team, conf 0.8)
+  A016 | p99 latency above 2.5s for 10 minutes
+      expected performance/high/SRE -> got performance/medium/SRE (route_to_team, conf 0.85)
+  A020 | Slow response time on monthly report endpoint
+      expected performance/low/SRE -> got performance/medium/SRE (route_to_team, conf 0.85)
+  T024 | Suspicious email with invoice attachment
+      expected security/low/Security Operations -> got security/medium/Security Operations (route_to_team, conf 0.85)
+  A027 | Nightly backup job failed for file server
+      expected infrastructure/medium/Infrastructure / Platform -> got infrastructure/high/Infrastructure / Platform (route_to_team, conf 0.75)
+  P028 | Node worker-12 NotReady
+      expected infrastructure/high/Infrastructure / Platform -> got infrastructure/medium/Infrastructure / Platform (route_to_team, conf 0.85)
+  A031 | Redundant power supply failure on hypervisor hv-02
+      expected infrastructure/medium/Infrastructure / Platform -> got infrastructure/high/Infrastructure / Platform (route_to_team, conf 0.85)
+  A032 | Kernel panic, host rebooted unexpectedly
+      expected infrastructure/high/Infrastructure / Platform -> got infrastructure/critical/Infrastructure / Platform (route_to_team, conf 0.85)
+  T033 | Something is weird with the system
+      expected unknown/low/Triage Desk -> got unknown/medium/Triage Desk (human_review, conf 0.4)
+  A034 | Check status
+      expected unknown/low/Triage Desk -> got unknown/medium/Triage Desk (human_review, conf 0.4)

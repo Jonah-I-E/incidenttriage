@@ -1,0 +1,222 @@
+[
+ {
+  "step": "POST /alerts  (webhook, single generic alert)",
+  "status": 200,
+  "response": {
+   "processed": [
+    {
+     "alert_id": "e12be1ae06a1",
+     "service": "checkout-api",
+     "category": "application",
+     "priority": "high",
+     "confidence": 0.95,
+     "action": "route_to_team",
+     "team": "Application On-Call",
+     "runbook": null,
+     "summary": "checkout-api: HTTP 500 error rate above 30% on /checkout",
+     "duplicates_folded": 0,
+     "reasons": [
+      "rule match 'application' (score 5)"
+     ],
+     "processing_ms": 3.1
+    }
+   ]
+  }
+ },
+ {
+  "step": "POST /alerts  (Prometheus Alertmanager envelope)",
+  "status": 200,
+  "response": {
+   "processed": [
+    {
+     "alert_id": "d74e024fcb68",
+     "service": "k8s",
+     "category": "infrastructure",
+     "priority": "medium",
+     "confidence": 0.85,
+     "action": "route_to_team",
+     "team": "Infrastructure / Platform",
+     "runbook": null,
+     "summary": "k8s: Node worker-3 NotReady",
+     "duplicates_folded": 0,
+     "reasons": [
+      "rule match 'infrastructure' (score 3)"
+     ],
+     "processing_ms": 0.8
+    }
+   ]
+  }
+ },
+ {
+  "step": "POST /alerts  (vague submitted ticket)",
+  "status": 200,
+  "response": {
+   "processed": [
+    {
+     "alert_id": "T-DEMO-1",
+     "service": "unknown",
+     "category": "unknown",
+     "priority": "medium",
+     "confidence": 0.4,
+     "action": "human_review",
+     "team": "Triage Desk",
+     "runbook": null,
+     "summary": "unknown: Something seems off with the system",
+     "duplicates_folded": 0,
+     "reasons": [
+      "no rule matched; relying on analyzer",
+      "confidence 0.40 below 0.6 or unknown category"
+     ],
+     "processing_ms": 0.3
+    }
+   ]
+  }
+ },
+ {
+  "step": "POST /upload  (sample_syslog.log)",
+  "status": 200,
+  "response": {
+   "parsed": 5,
+   "processed": [
+    {
+     "alert_id": "fc6eb6a56d51",
+     "service": "nginx",
+     "category": "unknown",
+     "priority": "high",
+     "confidence": 0.4,
+     "action": "human_review",
+     "team": "Triage Desk",
+     "runbook": null,
+     "summary": "nginx: upstream connect error or disconnect/reset before headers, connection refused",
+     "duplicates_folded": 0,
+     "reasons": [
+      "no rule matched; relying on analyzer",
+      "confidence 0.40 below 0.6 or unknown category"
+     ],
+     "processing_ms": 0.5
+    },
+    {
+     "alert_id": "892ee34a5e5b",
+     "service": "postgres",
+     "category": "database",
+     "priority": "high",
+     "confidence": 0.95,
+     "action": "route_to_team",
+     "team": "Database Team",
+     "runbook": null,
+     "summary": "postgres: deadlock detected, process 4411 waits for ShareLock on transaction 7781 (1 duplicates folded)",
+     "duplicates_folded": 1,
+     "reasons": [
+      "rule match 'database' (score 5)"
+     ],
+     "processing_ms": 0.5
+    },
+    {
+     "alert_id": "e86d2e1f3c95",
+     "service": "sshd",
+     "category": "security",
+     "priority": "high",
+     "confidence": 0.85,
+     "action": "route_to_team",
+     "team": "Security Operations",
+     "runbook": null,
+     "summary": "sshd: Failed password for root from 198.51.100.23 - brute force suspected, 300 failed attempts",
+     "duplicates_folded": 0,
+     "reasons": [
+      "rule match 'security' (score 3)"
+     ],
+     "processing_ms": 0.5
+    },
+    {
+     "alert_id": "dbe02c09b870",
+     "service": "kernel",
+     "category": "infrastructure",
+     "priority": "critical",
+     "confidence": 0.85,
+     "action": "route_to_team",
+     "team": "Infrastructure / Platform",
+     "runbook": null,
+     "summary": "kernel: No space left on device writing /data/out.parquet",
+     "duplicates_folded": 0,
+     "reasons": [
+      "rule match 'infrastructure' (score 3)"
+     ],
+     "processing_ms": 0.5
+    }
+   ]
+  }
+ },
+ {
+  "step": "POST /upload  (sample_alerts.csv)",
+  "status": 200,
+  "response": {
+   "parsed": 3,
+   "processed": [
+    {
+     "alert_id": "C1",
+     "service": "web-09",
+     "category": "infrastructure",
+     "priority": "medium",
+     "confidence": 0.85,
+     "action": "auto_remediate",
+     "team": "Infrastructure / Platform",
+     "runbook": "clear_tmp_and_rotate_logs",
+     "summary": "web-09: Disk usage at 86% on /var",
+     "duplicates_folded": 0,
+     "reasons": [
+      "rule match 'infrastructure' (score 3)",
+      "known low-risk issue: runbook 'clear_tmp_and_rotate_logs'"
+     ],
+     "processing_ms": 0.4
+    },
+    {
+     "alert_id": "C2",
+     "service": "payments",
+     "category": "application",
+     "priority": "high",
+     "confidence": 0.85,
+     "action": "route_to_team",
+     "team": "Application On-Call",
+     "runbook": null,
+     "summary": "payments: HTTP 502 errors on payment callback",
+     "duplicates_folded": 0,
+     "reasons": [
+      "rule match 'application' (score 3)"
+     ],
+     "processing_ms": 0.3
+    },
+    {
+     "alert_id": "C3",
+     "service": "email-worker",
+     "category": "performance",
+     "priority": "medium",
+     "confidence": 0.8,
+     "action": "auto_remediate",
+     "team": "SRE",
+     "runbook": "restart_stuck_worker",
+     "summary": "email-worker: Queue backlog: worker stuck",
+     "duplicates_folded": 0,
+     "reasons": [
+      "rule match 'performance' (score 2.5)",
+      "known low-risk issue: runbook 'restart_stuck_worker'"
+     ],
+     "processing_ms": 0.5
+    }
+   ]
+  }
+ },
+ {
+  "step": "POST /incidents/1/feedback  (responder confirms decision)",
+  "status": 200,
+  "response": {
+   "ok": true
+  }
+ },
+ {
+  "step": "POST /incidents/4/feedback  (Triage Desk resolves a human-review item)",
+  "status": 200,
+  "response": {
+   "ok": true
+  }
+ }
+]

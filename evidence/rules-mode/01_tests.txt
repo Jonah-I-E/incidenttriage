@@ -1,0 +1,21 @@
+$ /usr/local/bin/python3 -m pytest -v tests
+# exit code: 0
+
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0 -- /usr/local/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/user/incidenttriage
+plugins: anyio-4.15.1
+collecting ... collected 9 items
+
+tests/test_pipeline.py::test_normalizes_all_formats PASSED               [ 11%]
+tests/test_pipeline.py::test_dedup_folds_same_shape_messages PASSED      [ 22%]
+tests/test_pipeline.py::test_log_and_csv_parsing PASSED                  [ 33%]
+tests/test_pipeline.py::test_critical_floor_and_routing PASSED           [ 44%]
+tests/test_pipeline.py::test_vague_alert_goes_to_human PASSED            [ 55%]
+tests/test_pipeline.py::test_auto_remediation_only_for_known_low_risk PASSED [ 66%]
+tests/test_pipeline.py::test_analyzer_failure_falls_back_to_human_review PASSED [ 77%]
+tests/test_pipeline.py::test_incident_log_and_feedback PASSED            [ 88%]
+tests/test_pipeline.py::test_claude_analyzer_request_and_parse PASSED    [100%]
+
+============================== 9 passed in 1.84s ===============================
